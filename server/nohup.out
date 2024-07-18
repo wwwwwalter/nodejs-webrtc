@@ -1,0 +1,24 @@
+创建一个新的连接--------
+uid: 1q6i3z9c3rytry to join room 11
+创建一个新的连接--------
+连接关闭 code: 1001, reason: 
+创建一个新的连接--------
+uid: 3ht89aa66l4try to join room 11
+new-peer: {"cmd":"new-peer","remoteUid":"3ht89aa66l4"}
+resp-join: {"cmd":"resp-join","remoteUid":"1q6i3z9c3ry"}
+handleOffer uid: 1q6i3z9c3rytransfer  offer  to remoteUid3ht89aa66l4
+handleAnswer uid: 3ht89aa66l4transfer answer  to remoteUid1q6i3z9c3ry
+handleCandidate uid: 1q6i3z9c3rytransfer candidate  to remoteUid3ht89aa66l4
+handleCandidate uid: 1q6i3z9c3rytransfer candidate  to remoteUid3ht89aa66l4
+handleCandidate uid: 3ht89aa66l4transfer candidate  to remoteUid1q6i3z9c3ry
+handleCandidate uid: 3ht89aa66l4transfer candidate  to remoteUid1q6i3z9c3ry
+uid: 3ht89aa66l4leave room 11
+notify peer:1q6i3z9c3ry, uid:3ht89aa66l4 leave
+连接关闭 code: 1006, reason: 
+uid: 3ht89aa66l4 have leave roomId 11
+连接关闭 code: 1006, reason: 
+uid: 1q6i3z9c3ry force leave room 11
+创建一个新的连接--------
+uid: wr3e2tt5n3try to join room 11
+连接关闭 code: 1006, reason: 
+uid: wr3e2tt5n3 force leave room 11
