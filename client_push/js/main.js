@@ -102,7 +102,7 @@ function createPeerConnection() {
     pc.onconnectionstatechange = handleConnectionStateChange;
     pc.oniceconnectionstatechange = handleIceConnectionStateChange
 
-    // localStream.getTracks().forEach((track) => pc.addTrack(track, localStream)); // 把本地流设置给RTCPeerConnection
+    localStream.getTracks().forEach((track) => pc.addTrack(track, localStream)); // 把本地流设置给RTCPeerConnection
 }
 
 function createOfferAndSendMessage(session) {
@@ -390,11 +390,11 @@ function initLocalStream() {
 // }
 
 function startRun(){
-    roomId = 1
+    roomId = "1"
     initLocalStream();
 }
 
-zeroRTCEngine = new ZeroRTCEngine("ws://localhost:9999");
+zeroRTCEngine = new ZeroRTCEngine("ws://192.168.10.236:9999");
 // zeroRTCEngine = new ZeroRTCEngine("ws://192.168.0.7:9090/ws");
 zeroRTCEngine.createWebsocket();
 
