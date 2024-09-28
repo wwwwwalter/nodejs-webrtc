@@ -394,7 +394,7 @@ function startRun(){
     initLocalStream();
 }
 
-zeroRTCEngine = new ZeroRTCEngine("ws://192.168.10.236:9999");
+zeroRTCEngine = new ZeroRTCEngine("ws://101.132.39.118:9999");
 // zeroRTCEngine = new ZeroRTCEngine("ws://192.168.0.7:9090/ws");
 zeroRTCEngine.createWebsocket();
 
