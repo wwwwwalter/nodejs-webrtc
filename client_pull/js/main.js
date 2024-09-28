@@ -82,16 +82,16 @@ function createPeerConnection() {
         iceServers: [
             {
                 "urls": [
+                    "stun:stun.l.google.com:19302"
+                ]
+            },
+            {
+                "urls": [
                     "turn:192.168.8.10:3478?transport=udp",
                     "turn:192.168.8.10:3478?transport=tcp"       // 可以插入多个进行备选
                 ],
                 "username": "lqf",
                 "credential": "123456"
-            },
-            {
-                "urls": [
-                    "stun:192.168.8.10:3478"
-                ]
             }
         ]
     };
