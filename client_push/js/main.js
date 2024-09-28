@@ -349,17 +349,17 @@ function closeLocalStream() {
 function openLocalStream(stream) {
     console.log('Open local stream');
     doJoin(roomId);
-    localVideo.srcObject = stream;      // 显示画面
+    // localVideo.srcObject = stream;      // 显示画面
     localStream = stream;   // 保存本地流的句柄
 }
 
 const constraints = {
-    // video: {
-    //     width: { exact: 640 }, // 设置确切的宽度为1280像素
-    //     height: { exact: 480 },  // 设置确切的高度为720像素
-    //     frameRate: { min: 30, max: 60 } // 设置帧率为固定30fps
-    // },
-    video: true,
+    video: {
+        width: { exact: 1920 }, // 设置确切的宽度为1280像素
+        height: { exact: 1080 },  // 设置确切的高度为720像素
+        frameRate: { min: 30, max: 60 } // 设置帧率为固定30fps
+    },
+    // video: true,
     audio: false
 };
 
