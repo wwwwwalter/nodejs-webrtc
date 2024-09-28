@@ -1,0 +1,46 @@
+<!DOCTYPE html>  
+<html>  
+<head>  
+    <title>windows</title>  
+    <style>  
+        /* 设置页面样式 */  
+        body, html {  
+            height: 100%;  
+            margin: 0;  
+            display: flex;  
+            justify-content: center;  
+            align-items: center;  
+            flex-direction: column;  
+        }  
+  
+        /* 设置视频样式 */  
+        #remoteVideo {  
+            width: 1920px;  
+            height: 1080px;  
+            object-fit: cover; /* 确保视频比例正常 */  
+        }  
+  
+        /* 设置视频容器样式 */  
+        #videos {  
+            display: flex;  
+            justify-content: center;  
+            align-items: center;  
+            flex-direction: column;  
+        }  
+    </style>  
+</head>  
+<body>  
+    <div id="buttons">  
+        id:
+        <!-- <input id="zero-roomId" type="text" placeholder="请输入设备ID" maxlength="40"/>  
+        <button id="joinBtn" type="button">打开</button>  
+        <button id="leaveBtn" type="button">关闭</button>       -->
+    </div>  
+    <div id="videos">  
+        <video id="remoteVideo" autoplay playsinline>远端窗口</video>  
+        <video id="localVideo" autoplay muted playsinline>本地窗口</video>  
+    </div>  
+    <script src="js/main.js"></script>  
+    <script src="js/adapter-latest.js"></script>  
+</body>  
+</html>

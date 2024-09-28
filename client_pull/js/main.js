@@ -1,4 +1,4 @@
-'use strict';
+// 'use strict';
 
 // join 主动加入房间
 // leave 主动离开房间
@@ -42,8 +42,8 @@ function handleIceCandidate(event) {
             'cmd': SIGNAL_TYPE_CANDIDATE,
             'roomId': roomId,
             'uid': localUserId,
-            'remoteUid':remoteUserId,
-            'msg': JSON.stringify(candidateJson) 
+            'remoteUid': remoteUserId,
+            'msg': JSON.stringify(candidateJson)
         };
         var message = JSON.stringify(jsonMsg);
         zeroRTCEngine.sendMessage(message);
@@ -61,36 +61,36 @@ function handleRemoteStreamAdd(event) {
 }
 
 function handleConnectionStateChange() {
-    if(pc != null) {
+    if (pc != null) {
         console.info("ConnectionState -> " + pc.connectionState);
     }
 }
 
 function handleIceConnectionStateChange() {
-    if(pc != null) {
+    if (pc != null) {
         console.info("IceConnectionState -> " + pc.iceConnectionState);
     }
 }
 
 
 function createPeerConnection() {
-    var defaultConfiguration = {  
+    var defaultConfiguration = {
         bundlePolicy: "max-bundle",
         rtcpMuxPolicy: "require",
-        iceTransportPolicy:"all",//relay 或者 
+        iceTransportPolicy: "all",//relay 或者 
         // 修改ice数组测试效果，需要进行封装
         iceServers: [
             {
                 "urls": [
-                    "turn:192.168.0.143:3478?transport=udp",
-                    "turn:192.168.0.143:3478?transport=tcp"       // 可以插入多个进行备选
+                    "turn:192.168.8.10:3478?transport=udp",
+                    "turn:192.168.8.10:3478?transport=tcp"       // 可以插入多个进行备选
                 ],
                 "username": "lqf",
                 "credential": "123456"
             },
             {
                 "urls": [
-                    "stun:192.168.0.143:3478"
+                    "stun:192.168.8.10:3478"
                 ]
             }
         ]
@@ -102,7 +102,7 @@ function createPeerConnection() {
     pc.onconnectionstatechange = handleConnectionStateChange;
     pc.oniceconnectionstatechange = handleIceConnectionStateChange
 
-    localStream.getTracks().forEach((track) => pc.addTrack(track, localStream)); // 把本地流设置给RTCPeerConnection
+    // localStream.getTracks().forEach((track) => pc.addTrack(track, localStream)); // 把本地流设置给RTCPeerConnection
 }
 
 function createOfferAndSendMessage(session) {
@@ -198,8 +198,8 @@ ZeroRTCEngine.prototype.onMessage = function (event) {
     console.log("onMessage: " + event.data);
     var jsonMsg = null;
     try {
-         jsonMsg = JSON.parse(event.data);
-    } catch(e) {
+        jsonMsg = JSON.parse(event.data);
+    } catch (e) {
         console.warn("onMessage parse Json failed:" + e);
         return;
     }
@@ -247,7 +247,7 @@ function handleResponseJoin(message) {
 function handleRemotePeerLeave(message) {
     console.info("handleRemotePeerLeave, remoteUid: " + message.remoteUid);
     remoteVideo.srcObject = null;
-    if(pc != null) {
+    if (pc != null) {
         pc.close();
         pc = null;
     }
@@ -261,11 +261,12 @@ function handleRemoteNewPeer(message) {
 
 function handleRemoteOffer(message) {
     console.info("handleRemoteOffer");
-    if(pc == null) {
+    if (pc == null) {
         createPeerConnection();
     }
     var desc = JSON.parse(message.msg);
     pc.setRemoteDescription(desc);
+    console.warn("setRemoteDescription")
     doAnswer();
 }
 
@@ -329,16 +330,16 @@ function hangup() {
     localVideo.srcObject = null; // 0.关闭自己的本地显示
     remoteVideo.srcObject = null; // 1.不显示对方
     closeLocalStream(); // 2. 关闭本地流
-    if(pc != null) {
+    if (pc != null) {
         pc.close(); // 3.关闭RTCPeerConnection
         pc = null;
     }
 }
 
 function closeLocalStream() {
-    if(localStream != null) {
+    if (localStream != null) {
         localStream.getTracks().forEach((track) => {
-                track.stop();
+            track.stop();
         });
     }
 }
@@ -346,24 +347,30 @@ function closeLocalStream() {
 function openLocalStream(stream) {
     console.log('Open local stream');
     doJoin(roomId);
-    localVideo.srcObject = stream;      // 显示画面
+    // localVideo.srcObject = stream;      // 显示画面
     localStream = stream;   // 保存本地流的句柄
 }
 
+const constraints = {
+    video: {
+        width: { exact: 640 }, // 设置确切的宽度为1280像素
+        height: { exact: 480 },  // 设置确切的高度为720像素
+        frameRate: { min: 30, max: 60 } // 设置帧率为固定30fps
+    },
+    // video: true,
+    audio: false
+};
 
 function initLocalStream() {
-    navigator.mediaDevices.getUserMedia({
-        audio: false,
-        video: true
-    })
+    navigator.mediaDevices.getUserMedia(constraints)
         .then(openLocalStream)
         .catch(function (e) {
             alert("getUserMedia() error: " + e.name);
         });
 }
-// engine = new Engine("wss://129.211.184.235:8089/ws");
-// zeroRTCEngine = new ZeroRTCEngine("ws://192.168.0.143:10000");
-zeroRTCEngine = new ZeroRTCEngine("wss://129.211.184.235:8089/ws");
+
+zeroRTCEngine = new ZeroRTCEngine("ws://localhost:9999");
+// zeroRTCEngine = new ZeroRTCEngine("ws://192.168.0.7:9090/ws");
 zeroRTCEngine.createWebsocket();
 
 document.getElementById('joinBtn').onclick = function () {
@@ -374,7 +381,9 @@ document.getElementById('joinBtn').onclick = function () {
     }
     console.log("加入按钮被点击, roomId: " + roomId);
     // 初始化本地码流
-    initLocalStream();
+    // initLocalStream();
+    // 加入房间
+    doJoin(roomId);
 }
 
 document.getElementById('leaveBtn').onclick = function () {

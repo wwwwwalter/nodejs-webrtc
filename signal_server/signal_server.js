@@ -1,5 +1,6 @@
 var ws = require("nodejs-websocket")
-var prort = 10000;
+// var ws = require("ws")
+var prort = 9999;
 
 // join 主动加入房间
 // leave 主动离开房间
@@ -174,7 +175,7 @@ function handleForceLeave(client) {
     // 1. 先查找房间号
     var roomMap = roomTableMap.get(roomId);
     if (roomMap == null) {
-        console.warn("handleForceLeave can't find then roomId " + roomId);
+        console.warn("handleForceLeave can't find then roomId " + roomId);                              
         return;
     }
 
@@ -211,7 +212,7 @@ function handleOffer(message) {
     var uid = message.uid;
     var remoteUid = message.remoteUid;
 
-    console.info("handleOffer uid: " + uid + "transfer  offer  to remoteUid" + remoteUid);
+    console.info("handleOffer uid: " + uid + " transfer  offer  to remoteUid " + remoteUid);
 
     var roomMap = roomTableMap.get(roomId);
     if (roomMap == null) {
@@ -238,7 +239,7 @@ function handleAnswer(message) {
     var uid = message.uid;
     var remoteUid = message.remoteUid;
 
-    console.info("handleAnswer uid: " + uid + "transfer answer  to remoteUid" + remoteUid);
+    console.info("handleAnswer uid: " + uid + " transfer answer  to remoteUid " + remoteUid);
 
     var roomMap = roomTableMap.get(roomId);
     if (roomMap == null) {
@@ -265,7 +266,7 @@ function handleCandidate(message) {
     var uid = message.uid;
     var remoteUid = message.remoteUid;
 
-    console.info("handleCandidate uid: " + uid + "transfer candidate  to remoteUid" + remoteUid);
+    console.info("handleCandidate uid: " + uid + " transfer candidate  to remoteUid " + remoteUid);
 
     var roomMap = roomTableMap.get(roomId);
     if (roomMap == null) {
